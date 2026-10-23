@@ -1,0 +1,22 @@
+# Còpia de .github/workflows/compila.yml (els workflows es creen des del web de GitHub).
+# Compila els fitxers de referència del TikZ quan canvia l'exportació.
+name: Compila el TikZ
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'js/export/**'
+      - 'js/motor/dibuix.js'
+      - 'tests/golden/**'
+  workflow_dispatch:
+
+jobs:
+  compila:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instal·la LaTeX amb TikZ
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-pictures texlive-latex-extra
+      - name: Compila tests/golden/*.tex
+        run: sh tools/compila-golden.sh

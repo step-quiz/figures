@@ -1,0 +1,41 @@
+\documentclass[12pt,tikz,border=2mm]{standalone}
+\begin{document}
+% figures:v1:xZXNbuIwFIXf5aydyIbSqn6HESxgVbFwzSXyjGMz_qmoUN595LQVaTsZmErQVaTo2v7OuX8HPFGIxkMKhuxMUilCQrdg8I8_SSeKkA8HmA0k5mBIZpdLyC67BAYVmhIwZdN6tmagmIyFPKAJ2ewh4XxolS3ngtLlZu-ScRkM2lsfSgQ1gdAx-J023kXIQ8dAyfzOlFS5K9E-vb6-obizSquWXIJ8qHgtbljFa3677hieTDSPliBTyNSxV2otBtjaBJ3bLQVy2qgqqI05qihPTC6jwmVrxwAXo7be17MrGLv4bGzvKx_39McH5Ko1zXsfscBVnNwqGwe5nozmeoBX6Offgbcc0BmXKETS2vgBWl-sRQW_cNKXf-0mPrtnvBaTu_HUr87XIC6sYTWqoTohIg5nQqSmP31UUDpiietPgjg5ibX6DqzpP7Hmo25tzaWQ2mECWxW0qpRrLH3CGhtE_40GFXTs92QoaxESKqdS9v0Okbyesbe6xNkyfr3bTT6ps2z9UrY_dErF65sjcTiNvO5_vPTfnkNyhueXz15ACsHwLCDvuu4P
+\begin{tikzpicture}[line cap=round, line join=round]
+  % c1
+  \draw[semithick] (3.000,3.500) circle[radius=2.000];
+  % s1
+  \draw[semithick] (9.500,3.500) -- (3.615,5.403);
+  % s2
+  \draw[semithick] (9.500,3.500) -- (3.615,1.597);
+  % s3
+  \draw[thin] (3.000,3.500) -- (3.615,5.403);
+  % m1
+  \draw[thin] (3.508,5.070) -- (3.841,4.962) -- (3.948,5.295);
+  % k1
+  \draw[thin] (3.076,3.475) -- (3.523,3.331);
+  \draw[thin] (3.692,5.378) -- (4.139,5.234);
+  \draw[thin] (3.428,3.362) -- (4.044,5.265);
+  % O
+  \fill (3.000,3.500) circle[radius=0.050];
+  % P
+  \fill (9.500,3.500) circle[radius=0.050];
+  % T
+  \fill (3.615,5.403) circle[radius=0.050];
+  % U
+  \fill (3.615,1.597) circle[radius=0.050];
+  % k1
+  \fill (3.428,3.362) -- (3.543,3.500) -- (3.416,3.541) -- cycle;
+  \fill (4.044,5.265) -- (3.929,5.126) -- (4.056,5.085) -- cycle;
+  % O
+  \node[anchor=north east] at (2.860,3.440) {$O$};
+  % P
+  \node[anchor=west] at (9.640,3.500) {$P$};
+  % T
+  \node[anchor=south east] at (3.556,5.530) {$T$};
+  % U
+  \node[anchor=north east] at (3.556,1.470) {$U$};
+  % k1
+  \node[anchor=west] at (3.850,4.276) {$r$};
+\end{tikzpicture}
+\end{document}

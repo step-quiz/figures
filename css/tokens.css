@@ -1,0 +1,56 @@
+/*
+============================================================================
+PROJECTE: figures (Step Quiz, vanilla JS)
+FITXER: css/tokens.css
+ROL: Colors i mides comuns, en mode clar i fosc. La resta dels estils només
+     fan servir aquestes variables. Contrast del text ≥ 4,5:1.
+DEPENDÈNCIES: cap. Es carrega abans de css/figures.css.
+============================================================================
+*/
+:root {
+    --text: #1e293b;
+    --text-suau: #475569;
+    --fons: #f8fafc;
+    --panell: #ffffff;
+    --vora-panell: #e2e8f0;
+    --primari: #0e7490;
+    --primari-fosc: #155e75;
+    --primari-clar: #cffafe;
+    --be: #047857;
+    --be-fons: #d1fae5;
+    --error: #b91c1c;
+    --error-fons: #fee2e2;
+    --info: #1d4ed8;
+    --info-fons: #dbeafe;
+
+    /* Llenç: és paper, sempre blanc */
+    --sel: #c2410c;
+    --graella: #d6d3d1;
+    --graella-fina: #eeeceb;
+
+    --radi: 10px;
+    --ombra: 0 1px 3px rgba(15, 23, 42, 0.08);
+    --lletra: system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, 'Helvetica Neue', Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text: #e2e8f0;
+        --text-suau: #94a3b8;
+        --fons: #0f172a;
+        --panell: #1e293b;
+        --vora-panell: #334155;
+        --primari: #67e8f9;
+        --primari-fosc: #a5f3fc;
+        --primari-clar: #164e63;
+        --be: #6ee7b7;
+        --be-fons: #064e3b;
+        --error: #fca5a5;
+        --error-fons: #450a0a;
+        --info: #93c5fd;
+        --info-fons: #1e3a8a;
+
+        --sel: #f97316;
+        --ombra: none;
+    }
+}

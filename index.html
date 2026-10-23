@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Figures d’examen · Step Quiz</title>
+    <meta name="description" content="Editor de figures de geometria per a exàmens: exporta TikZ (Overleaf), SVG i PNG.">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/tokens.css?v=af5ddaff">
+    <link rel="stylesheet" href="css/figures.css?v=41ef1a37">
+</head>
+<body>
+    <header class="capcalera">
+        <h1>Figures d’examen</h1>
+        <div class="barra" role="toolbar" aria-label="Fitxer">
+            <button type="button" class="btn" id="btn-nova"></button>
+            <label class="btn btn-select"><span class="sr" id="t-plantilles"></span><select id="plantilles"></select></label>
+            <button type="button" class="btn" id="btn-obre"></button>
+            <input type="file" id="fitxer" accept=".json,.tex,application/json,text/plain" hidden>
+            <button type="button" class="btn" id="btn-desa"></button>
+            <button type="button" class="btn" id="btn-comparteix"></button>
+            <button type="button" class="btn" id="btn-importa"></button>
+            <button type="button" class="btn" id="btn-desfes" aria-keyshortcuts="Control+Z"></button>
+            <button type="button" class="btn" id="btn-refes" aria-keyshortcuts="Control+Y"></button>
+        </div>
+    </header>
+
+    <div class="editor">
+        <nav class="eines" id="eines" aria-label="Eines"></nav>
+
+        <main class="zona-llenc">
+            <div class="opcions-eina" id="opcions-eina">
+                <p class="pas" id="pas-eina" aria-live="polite"></p>
+                <div class="fila" id="camps-eina"></div>
+            </div>
+            <div class="llenc" id="llenc" tabindex="0" aria-label="La figura"></div>
+            <p class="nota" id="estat" aria-live="polite"></p>
+            <p class="nota" id="tecles"></p>
+        </main>
+
+        <aside class="propietats" id="propietats" aria-label="Propietats"></aside>
+    </div>
+
+    <section class="exporta" aria-labelledby="t-exporta">
+        <h2 id="t-exporta"></h2>
+        <div class="fila">
+            <button type="button" class="btn btn-principal" id="btn-copia-tikz"></button>
+            <button type="button" class="btn" id="btn-tex"></button>
+            <button type="button" class="btn" id="btn-svg"></button>
+            <button type="button" class="btn" id="btn-png"></button>
+            <button type="button" class="btn" id="btn-copia-png" hidden></button>
+            <span class="nota" id="estat-exporta" aria-live="polite"></span>
+        </div>
+        <label class="sr" for="tikz">TikZ</label>
+        <textarea id="tikz" class="tikz" rows="10" readonly spellcheck="false"></textarea>
+        <p class="nota" id="nota-exporta"></p>
+    </section>
+
+    <dialog id="dialeg-importa" aria-labelledby="t-importa">
+        <form method="dialog">
+            <p id="t-importa"></p>
+            <textarea id="text-importa" rows="10" spellcheck="false"></textarea>
+            <p class="nota" id="error-importa" aria-live="polite"></p>
+            <div class="fila">
+                <button type="button" class="btn btn-principal" id="btn-fes-importa"></button>
+                <button type="submit" class="btn" id="btn-cancella" value="cancel"></button>
+            </div>
+        </form>
+    </dialog>
+
+    <footer class="peu">
+        <p>
+            Material desenvolupat per David Arso Civil per al Departament de Matemàtiques de l’INS Miquel Tarradell.
+            Contingut sota CC BY-NC-SA 4.0, codi sota llicència MIT. <a href="LLICENCIA.md">Llicència</a>.
+        </p>
+    </footer>
+
+    <script src="js/motor/geo-motor.js?v=2b9c8653"></script>
+    <script src="js/motor/funcio.js?v=3b888f80"></script>
+    <script src="js/motor/dibuix.js?v=2c0d3ce3"></script>
+    <script src="js/export/tikz.js?v=be07d378"></script>
+    <script src="js/export/svg.js?v=54e35188"></script>
+    <script src="js/export/codi.js?v=9882df40"></script>
+    <script src="data/plantilles.js?v=f25758d4"></script>
+    <script src="js/ui/textos.js?v=09ca9e8c"></script>
+    <script src="js/ui/historial.js?v=4c2e9a49"></script>
+    <script src="js/ui/eines.js?v=8cdd4252"></script>
+    <script src="js/ui/editor.js?v=5c37e4d0"></script>
+    <script src="js/ui/propietats.js?v=4f89d04f"></script>
+    <script src="js/ui/fitxers.js?v=7b0b912c"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+node_modules/
+__pycache__/
+# Fonts locals que no es publiquen
+src/
+tmp/
+.DS_Store
+# Els ZIP es descomprimeixen a l’arrel; el .zip no es publica
+*.zip

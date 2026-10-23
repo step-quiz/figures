@@ -1,0 +1,7 @@
+# Només el codi: els HTML, els Markdown i els fitxers de dades queden com estan
+*.html
+*.md
+*.svg
+_headers
+_uploads/
+*.json
