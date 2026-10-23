@@ -1,0 +1,27 @@
+# Revisió automàtica: cada cop que es puja alguna cosa a main (o s'obre una
+# pull request), GitHub comprova el geoplà.
+#   ✓ verd    → tot correcte
+#   ✗ vermell → alguna cosa s'ha trencat (el detall és a la pestanya "Actions")
+# Només cal Node i Python 3 (ja hi són): no s'instal·la res.
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Executa tots els tests
+        run: node tests/run-all.js
