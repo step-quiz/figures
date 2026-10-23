@@ -4,7 +4,7 @@ Un editor de figures de geometria per a exàmens: una figura neta i ben constru�
 
 Web: https://figures.step-quiz.net
 
-La figura és **dinàmica**: si mous un punt, tot el que en depèn es mou amb ell (el punt mig continua sent el punt mig, la perpendicular continua sent perpendicular). El motor és el **GeoMotor** (`js/motor/geo-motor.js`), que farà servir també el projecte «Teoremes que no t’esperes».
+La figura és **dinàmica**: si mous un punt, tot el que en depèn es mou amb ell (el punt mig continua sent el punt mig, la perpendicular continua sent perpendicular). El motor és el **GeoMotor** (`js/motor/geo-motor.js`), un **fitxer comú** de `step-quiz-commons` que també fa servir «Teoremes que no t’esperes»: aquí no s’edita, es canvia a commons i arriba sol cada dia (workflow «Fitxers comuns»).
 
 ## Com es fa servir
 
@@ -69,7 +69,7 @@ index.html               l’editor
 css/tokens.css           colors (clar i fosc); el llenç és sempre blanc
 css/figures.css          estils
 data/plantilles.js       les plantilles
-js/motor/geo-motor.js    GeoMotor: objectes, avaluació, interseccions amb branques, serialització
+js/motor/geo-motor.js    GeoMotor (fitxer comú de step-quiz-commons): objectes, avaluació, interseccions, serialització
 js/motor/funcio.js       y = f(x): analitzador segur i mostreig adaptatiu
 js/motor/dibuix.js       la construcció en primitives (línies, arcs, textos…)
 js/export/tikz.js        TikZ i .tex autònom
@@ -93,7 +93,7 @@ node tests/run-all.js
 
 | Fitxer | Què comprova |
 |---|---|
-| `tests/geo-motor.test.js` | Interseccions contra les solucions analítiques (també tangències i sense solució), construccions, cada tipus de conveniència (baricentre, circumcentre, incentre, ortocentre, trisectriu, centre d’homotècia) igual que la seva construcció amb primitives, continuïtat de les branques en arrossegar, anada i tornada de la serialització byte a byte |
+| `tests/geo-motor.test.js` | Que el GeoMotor és la còpia comuna (i, si hi ha `step-quiz-commons` al costat, que és al dia) i que hi són tots els tipus de les eines. Els seus tests de veritat (interseccions analítiques, tipus de conveniència = primitives, continuïtat de les branques, serialització byte a byte) són al repositori step-quiz-commons (el seu tests/geo-motor.test.js) |
 | `tests/funcio.test.js` | L’analitzador contra `Math`, que rebutja el que no és una expressió, i el mostreig (asímptotes, retall) |
 | `tests/export.test.js` | El TikZ de cada plantilla igual que `tests/golden/<id>.tex`, TikZ pla, el codi de la primera línia, etiquetes, SVG ben format i mida de la PNG |
 | `tests/eines.test.js` | Les eines (on cau un clic) i que les plantilles es poden fer des de zero amb les eines; desfer i refer |

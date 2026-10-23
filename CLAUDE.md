@@ -40,8 +40,8 @@ Llegeix primer:
 Ha de funcionar **obrint `index.html` amb doble clic** (`file://`): scripts clàssics, cap mòdul ES, cap `fetch`,
 cap petició a internet.
 
-- **GeoMotor** (`js/motor/geo-motor.js`) és pur i es prova amb Node. Quan comenci el Projecte 21 es passarà a
-  `step-quiz-commons` (cal preguntar-ho abans a l'usuari: especificació §5.3).
+- **GeoMotor** (`js/motor/geo-motor.js`) és un **FITXER COMÚ**: ve de `step-quiz-commons` (`fitxers/geo-motor.js`) i
+  el workflow `comuns.yml` el sobreescriu cada dia. No l'editis aquí: canvia'l a commons i passa'n els tests allà.
 - **TikZ pla**: cap biblioteca ni construcció de TikZ, només coordenades. Si canvies l'exportació, regenera els
   fitxers de referència (`node tests/export.test.js --regenera`) i compila'ls (`sh tools/compila-golden.sh`).
 - Les plantilles (`data/plantilles.js`) són construccions de GeoMotor; cada una té el seu `tests/golden/<id>.tex`.

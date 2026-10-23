@@ -5,3 +5,5 @@
 _headers
 _uploads/
 *.json
+# El GeoMotor és un fitxer comú (step-quiz-commons): no es reformata aquí
+js/motor/geo-motor.js

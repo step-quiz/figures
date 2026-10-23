@@ -1,15 +1,20 @@
 /**
  * ============================================================================
- * PROJECTE: figures (Step Quiz, vanilla JS)
- * FITXER: js/motor/geo-motor.js
+ * PROJECTE: step-quiz-commons (Step Quiz, vanilla JS) · el fan servir figures i teoremes
+ * FITXER: js/motor/geo-motor.js   (a step-quiz-commons: fitxers/geo-motor.js)
+ *
+ * FITXER COMÚ: ve de step-quiz/step-quiz-commons i se sobreescriu sol cada dia
+ * (workflow «Fitxers comuns»). No l'editis aquí: canvia'l a step-quiz-commons
+ * (fitxers/geo-motor.js) i passa'n els tests (tests/geo-motor.test.js).
+ *
  * ROL: GeoMotor: el motor de geometria dinàmica. Una construcció és una llista
  *      ordenada d'objectes; cada objecte només fa servir objectes anteriors.
  *      Avalua la construcció (punts, rectes, circumferències, polígons,
  *      transformacions, anotacions), tria la branca de les interseccions,
  *      afegeix i esborra objectes i serialitza la construcció.
  * ARQUITECTURA: Pur, sense DOM (es prova amb Node). Unitats: cm de paper,
- *      y cap amunt. Previst per passar a step-quiz-commons quan el faci servir
- *      el Projecte 21 (especificació §5.3).
+ *      y cap amunt. Script clàssic amb exportació dual (window.GeoMotor o
+ *      module.exports), perquè funcioni amb doble clic.
  *   Objecte: { id, tipus, args: [ids | nombres | text], estil: { gruix, trac, color },
  *              opcions: {...}, etiqueta: { text, desplacament: [dx, dy] } | null, visible }
  *   Valors:  punt { x, y } · línia { tipus: 'recta'|'segment'|'semirecta', p, q }
@@ -22,6 +27,7 @@
  *     vectorial positiu), 1 si és a la dreta. Tangència: un sol punt.
  *   Mentre s'arrossega: la solució més propera a la posició anterior
  *   (continuïtat); en deixar-ho, fixaBranques() desa la branca nova.
+ *   segona-interseccio (a, b, P): l'altre punt de tall, el que no és P (no depèn de cap branca).
  *   Toleràncies relatives a l'escala de l'escena (la diagonal de la vista).
  * DEPENDÈNCIES: cap
  * ============================================================================
@@ -110,6 +116,8 @@
         'translacio': { args: ['P', 'P', 'P'], classe: 'punt' },
         'trisectriu': { args: ['P', 'P', 'P', 'n'], classe: 'linia' },
         'centre-homotecia': { args: ['C', 'C', 's'], classe: 'punt' },
+        'segona-interseccio': { args: ['O', 'O', 'P'], classe: 'punt' },
+        'circumcercle': { args: ['P', 'P', 'P'], classe: 'cercle' },
         'baricentre': { args: ['P', 'P', 'P'], classe: 'punt' },
         'circumcentre': { args: ['P', 'P', 'P'], classe: 'punt' },
         'incentre': { args: ['P', 'P', 'P'], classe: 'punt' },
@@ -364,6 +372,10 @@
             if (a[2] === 'int') return V.mul(V.add(V.mul(c1.c, c2.r), V.mul(c2.c, c1.r)), 1 / (c1.r + c2.r));
             return null;
         },
+        'circumcercle': function (a, o, esc) {
+            var O = CALCUL.circumcentre(a, o, esc);
+            return O ? { c: O, r: V.dist(O, a[0]) } : null;
+        },
         'baricentre': function (a) {
             return punt((a[0].x + a[1].x + a[2].x) / 3, (a[0].y + a[1].y + a[2].y) / 3);
         },
@@ -451,7 +463,18 @@
                     }
                 });
                 if (bo) {
-                    if (ob.tipus === 'interseccio') {
+                    if (ob.tipus === 'segona-interseccio') {
+                        // l'altre punt de tall (el més lluny del punt conegut); si és tangent, el mateix
+                        var lluny = null,
+                            dmax = -1;
+                        solucions(args[0], args[1], esc).forEach(function (S) {
+                            if (S && V.dist(S, args[2]) > dmax) {
+                                dmax = V.dist(S, args[2]);
+                                lluny = S;
+                            }
+                        });
+                        v = lluny;
+                    } else if (ob.tipus === 'interseccio') {
                         var sol = solucions(args[0], args[1], esc);
                         var b = Math.round(args[2]) === 1 ? 1 : 0;
                         var ant = o.anterior && o.anterior[ob.id];

@@ -3,17 +3,17 @@
 Agent-facing memory between sessions. English. Update it in the same commit as any change.
 Spec: [`SPEC.md`](SPEC.md). Where they disagree, this file wins.
 
-## Status (2026-10-22): v1 built, not yet published
+## Status (2026-10-23): v2 — GeoMotor consumed from step-quiz-commons
 
 | Part | Status |
 |---|---|
-| GeoMotor `js/motor/geo-motor.js` (pure, Node-tested) | DONE |
+| GeoMotor `js/motor/geo-motor.js` | MOVED to `step-quiz-commons/fitxers/geo-motor.js` (2026-10-23, user approved); synced daily by `comuns.yml`. Added `segona-interseccio` and `circumcercle` for Project 21. Full tests in commons; here only a sync/smoke test |
 | Function plotter `js/motor/funcio.js` (safe parser + adaptive sampling) | DONE (in v1 by the user's choice) |
 | Drawing primitives `dibuix.js`; exports TikZ / standalone .tex / SVG / PNG 300 dpi; `.tex` round trip | DONE |
 | Editor: tools, SVG canvas, properties, undo/redo (200), keys, templates (7), save/open/share/import, autosave | DONE, browser-checked under `file://` |
 | Tests (`node tests/run-all.js`); TikZ golden files compiled with pdflatex (`tools/compila-golden.sh`) | DONE, all green |
 | Optional workflow `compila.yml` (text in `docs/compila.yml`) | PENDING (user, web UI) |
-| Move GeoMotor to `step-quiz-commons` | WHEN Project 21 starts (ask the user first, spec §5.3) |
+| Workflow `.github/workflows/comuns.yml` (copy of `step-quiz-commons/plantilles/comuns.yml`) | PENDING (user, web UI) |
 | GitHub bootstrap, Cloudflare `figures.step-quiz.net`, card in `ins` | PENDING (user) |
 
 ## Decisions approved by the user (2026-10-22)
