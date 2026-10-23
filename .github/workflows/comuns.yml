@@ -1,0 +1,72 @@
+# Posa al dia els fitxers comuns d'aquest web (llicència, icones de la família,
+# family.js, footer.js, kbd-accessory.js, progress.js…) a partir del
+# repositori step-quiz/step-quiz-commons.
+#
+# Quins fitxers rep aquest web, i amb quina configuració, ho diu
+# step-quiz-commons/comuns.json. NO els editis aquí: el canvi es perdria la
+# propera vegada. Canvia'ls a step-quiz-commons.
+#
+# S'executa cada dia i també a mà: Actions → «Fitxers comuns» → Run workflow.
+# Si hi ha canvis, en fa un commit (sense cap etiqueta per saltar la CI, perquè
+# Cloudflare Pages el publiqui) i llança les comprovacions del web.
+#
+# Aquest fitxer és igual a tots els webs: la plantilla és a
+# step-quiz-commons/plantilles/comuns.yml.
+name: Fitxers comuns
+
+on:
+  schedule:
+    - cron: '23 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: comuns-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sincronitza:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Baixa step-quiz-commons
+        run: git clone --depth 1 https://github.com/step-quiz/step-quiz-commons.git "$RUNNER_TEMP/commons"
+
+      - name: Copia els fitxers comuns
+        run: python3 "$RUNNER_TEMP/commons/sincronitza.py" "${{ github.event.repository.name }}" .
+
+      - name: Desa els canvis
+        id: desa
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Els fitxers comuns ja estaven al dia."
+            exit 0
+          fi
+          git commit -q -m "Fitxers comuns al dia (step-quiz-commons)"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+          echo "desat=true" >> "$GITHUB_OUTPUT"
+          git diff --name-only HEAD~1 HEAD | sed 's/^/  /'
+
+      # Un commit fet per aquest workflow no llança cap altre workflow (regla de
+      # GitHub): es llancen aquí les comprovacions del web que es poden llançar a mà.
+      - name: Llança les comprovacions del web
+        if: steps.desa.outputs.desat == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for f in .github/workflows/*.yml; do
+            n=$(basename "$f")
+            case "$n" in comuns.yml|unzip-upload.yml) continue ;; esac
+            if grep -q 'workflow_dispatch' "$f"; then
+              gh workflow run "$n" --ref "$GITHUB_REF_NAME" && echo "S'ha llançat $n."
+            fi
+          done
